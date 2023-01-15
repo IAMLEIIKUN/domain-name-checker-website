@@ -9,13 +9,18 @@ Integration with multiple domain registrars
 User-friendly and mobile-friendly interface
 Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
+<br/><br/><br/>
 <B>Languages:</b>
-PHP
-HTML
-CSS
-JS
-Bootstrap
-
+<ul>
+<li>PHP</li>
+<li>HTML</li>
+<li>CSS</li>
+<li>JS</li>
+</ul>
+Framework:
+<ul>
+<li>Bootstrap</li>
+</ul>
+<br/><br/>
 <b>Percent:</b>
 50%
