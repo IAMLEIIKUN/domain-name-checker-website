@@ -7,7 +7,9 @@
     <title>Home - Domain Checker</title>
     <meta name="description" content="Our domain checker tool scans for domain availability across multiple TLDs (top-level domains) and provides you with a list of available options. The tool also allows you to check the availability of the domain name in real-time and it also shows the price for each option.">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+
 </head>
 
 <body>
@@ -29,12 +31,27 @@
                     <div class="text-center">
                         <h1 class="display-4 fw-bold mb-5">Domain Name<br><span class="underline">Checker</span>&nbsp;Tool</h1>
                         <p class="fs-5 text-muted mb-5"><span style="color: rgb(55, 65, 81); background-color: rgb(247, 247, 248);">Find the perfect domain name with ease</span><br></p>
-                        <form class="d-flex justify-content-center flex-wrap" method="post">
-                            <div class="shadow-lg mb-3"><input class="form-control" type="email" name="domain" placeholder="Search for a domain..."></div>
-                            <div class="shadow-lg mb-3"><button class="btn btn-primary" type="submit">Search</button></div>
-                        </form>
+
+                        <form id="lookup-form" class="lookup-form" method="post">
+         <div class="row align-items-center">  
+          <div class="form-group col-md-9">
+            <label for="inputEmail4">Domain/IP Address:</label>
+            <input type="text" class="form-control" id="domain" name="domain" placeholder="Domain/IP Address:">  
+          </div>
+          <div class="col">
+                <button type="button" class="btn btn-primary mt-3 float-left" id="get-lookup"><i class="fa fa-search"></i> WHOIS</button>
+            </div>
+        </div>
+    </form>
+
                     </div>
                 </div>
+
+                 <div class="row align-items-center">  
+      <div class="form-group col-md-12">
+        <span id="lookup-dispaly-details"></span>
+      </div>
+    </div>
                 <div class="col-12 col-lg-10 mx-auto">
                     <div class="text-center position-relative"><img class="img-fluid" src="assets/img/illustrations/meeting.svg" style="width: 800px;"></div>
                 </div>
@@ -251,8 +268,35 @@
             </div>
         </div>
     </footer>
+
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/script.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+   <script type="text/javascript">
+    jQuery(document).on('click', 'button#get-lookup', function(){
+        jQuery.ajax({
+            type:'POST',
+            url:'lookup.php',
+            data:jQuery("form#lookup-form").serialize(),
+            dataType:'html',    
+            beforeSend: function () {
+                jQuery('button#domain').button('loading');
+                jQuery('span#lookup-dispaly-details').html('<i class="fa fa-spinner" style="font-size:30px;"></i>');
+            },
+            complete: function () {
+                jQuery('button#get-lookup').button('reset');
+            },                
+            success: function (html) {
+                jQuery('span#lookup-dispaly-details').html(html);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }        
+        });
+    });
+</script>
 </body>
 
 </html>
